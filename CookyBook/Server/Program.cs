@@ -1,3 +1,7 @@
+using AutoMapper.EquivalencyExpression;
+using CookyBook.Server.AutoMapperProfiles;
+using DataAccess.Repositories;
+using DataAccess.Repositories.Impl;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<ICookBookRepository, CookBookRepository>();
+AddAutoMapperProfiles(builder.Services);
 
 var app = builder.Build();
 
@@ -34,3 +40,10 @@ app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+
+void AddAutoMapperProfiles(IServiceCollection services)
+{
+    services.AddAutoMapper(automapper => automapper.AddCollectionMappers());
+    services.AddAutoMapper(typeof(CookRecipeProfile));
+}
