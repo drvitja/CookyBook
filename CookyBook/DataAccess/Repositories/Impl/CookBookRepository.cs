@@ -1,7 +1,10 @@
 ﻿using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,44 +14,36 @@ namespace DataAccess.Repositories.Impl
     {
         public CookRecipe[] GetCookRecipes()
         {
-             List<CookRecipe> cookRecipes = new List<CookRecipe>
+            List<CookRecipe> cookRecipes = new List<CookRecipe>();
+
+            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Integrated Security=True";
+
+            SqlConnection con = new SqlConnection(conString);
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM CookRecipe";
+
+            try
             {
-                new CookRecipe
+                con.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    Id = 1,
-                    Name = "Spaghetti Bolognese",
-                    ShortDescription = "Spaghetti mit Bolognesesauce",
-                    Time = new TimeSpan(0, 15, 0)
-                },
-                new CookRecipe
-                {
-                    Id = 2,
-                    Name = "Milchreis",
-                    ShortDescription = "Lecker Milchreis",
-                    Time = new TimeSpan(0, 45, 0)
-                },
-                new CookRecipe
-                {
-                    Id = 3,
-                    Name = "Kartoffelauflauf",
-                    ShortDescription = "mit Kartoffeln & Hack & Feta",
-                    Time = new TimeSpan(0, 40, 0)
-                },
-                new CookRecipe
-                {
-                    Id = 4,
-                    Name = "Hähnchen mit Reis",
-                    ShortDescription = "Hähnchen mit Reis",
-                    Time = new TimeSpan(0, 20, 0)
-                },
-                new CookRecipe
-                {
-                    Id = 5,
-                    Name = "Frenchtoast",
-                    ShortDescription = "Toast mit Ei",
-                    Time = new TimeSpan(0, 10, 0)
+                    CookRecipe cookRecipe = new CookRecipe();
+                    cookRecipe.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                    cookRecipe.Name = reader.GetString(reader.GetOrdinal("Name"));
+                    cookRecipe.ShortDescription = reader.GetString(reader.GetOrdinal("Description"));
+                    cookRecipe.Time = reader.GetTimeSpan(reader.GetOrdinal("WorkingTime"));
+                    cookRecipes.Add(cookRecipe);
                 }
-            };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
 
             return cookRecipes.ToArray();
         }
