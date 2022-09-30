@@ -20,7 +20,7 @@ namespace DataAccess.Repositories.Impl
         {
             List<Ingredient> Ingredients = new List<Ingredient>();
 
-            string conString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\DKX0148\\Documents\\CookyBook_DBG.mdf;Integrated Security=True;Connect Timeout=30";
+            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
 
             SqlConnection con = new SqlConnection(conString);
             SqlCommand cmd = con.CreateCommand();
