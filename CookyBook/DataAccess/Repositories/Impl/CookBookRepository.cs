@@ -12,15 +12,19 @@ namespace DataAccess.Repositories.Impl
 {
     public class CookBookRepository : ICookBookRepository
     {
-        public CookRecipe[] GetCookRecipes()
+        public CookBookRepository()
         {
-            List<CookRecipe> cookRecipes = new List<CookRecipe>();
+        }
 
-            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Integrated Security=True";
+        public Ingredient[] GetIngredients()
+        {
+            List<Ingredient> Ingredients = new List<Ingredient>();
+
+            string conString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\DKX0148\\Documents\\CookyBook_DBG.mdf;Integrated Security=True;Connect Timeout=30";
 
             SqlConnection con = new SqlConnection(conString);
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "SELECT * FROM CookRecipe";
+            cmd.CommandText = "SELECT * FROM Ingredient";
 
             try
             {
@@ -28,12 +32,10 @@ namespace DataAccess.Repositories.Impl
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    CookRecipe cookRecipe = new CookRecipe();
-                    cookRecipe.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                    cookRecipe.Name = reader.GetString(reader.GetOrdinal("Name"));
-                    cookRecipe.ShortDescription = reader.GetString(reader.GetOrdinal("Description"));
-                    cookRecipe.Time = reader.GetTimeSpan(reader.GetOrdinal("WorkingTime"));
-                    cookRecipes.Add(cookRecipe);
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.Id = reader.GetInt32(reader.GetOrdinal("Ingredient_ID"));
+                    ingredient.Title = reader.GetString(reader.GetOrdinal("Title"));
+                    Ingredients.Add(ingredient);
                 }
             }
             catch (Exception ex)
@@ -45,7 +47,44 @@ namespace DataAccess.Repositories.Impl
                 con.Close();
             }
 
-            return cookRecipes.ToArray();
+            return Ingredients.ToArray();
+        }
+
+        public Recipe[] GetRecipes()
+        {
+            List<Recipe> Recipes = new List<Recipe>();
+
+            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
+
+            SqlConnection con = new SqlConnection(conString);
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM Recipe";
+
+            try
+            {
+                con.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Recipe cookRecipe = new Recipe();
+                    cookRecipe.Id = reader.GetInt32(0);
+                    cookRecipe.Title = reader.GetString(reader.GetOrdinal("Title"));
+                    cookRecipe.Description = reader.GetString(reader.GetOrdinal("Description"));
+                    cookRecipe.Preparation = reader.GetString(reader.GetOrdinal("Preparation"));
+                    cookRecipe.Duration = reader.GetTimeSpan(reader.GetOrdinal("Duration"));
+                    Recipes.Add(cookRecipe);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return Recipes.ToArray();
         }
     }
 }

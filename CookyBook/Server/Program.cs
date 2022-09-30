@@ -45,5 +45,5 @@ app.Run();
 void AddAutoMapperProfiles(IServiceCollection services)
 {
     services.AddAutoMapper(automapper => automapper.AddCollectionMappers());
-    services.AddAutoMapper(typeof(CookRecipeProfile));
+    services.AddAutoMapper(typeof(RecipeProfile));
 }

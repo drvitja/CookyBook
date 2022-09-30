@@ -9,6 +9,7 @@ namespace DataAccess.Repositories
 {
     public interface ICookBookRepository
     {
-        public CookRecipe[] GetCookRecipes();
+        public Recipe[] GetRecipes();
+        public Ingredient[] GetIngredients();
     }
 }

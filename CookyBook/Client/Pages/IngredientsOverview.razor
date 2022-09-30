@@ -1,0 +1,49 @@
+﻿@page "/ingredientsoverview"
+
+@using CookyBook.Shared
+@using CookyBook.Shared.DataTransferObjects
+@inject HttpClient Http
+
+<PageTitle>CookBook</PageTitle>
+
+<h1>CookBook</h1>
+
+@if (Ingredients == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Title</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ingredient in Ingredients)
+            {
+                <tr>
+                    <td><input type="checkbox" value="@ingredient.Selected" /></td>
+                    <td>@ingredient.Id</td>
+                    <td>@ingredient.Title</td>
+                    <td><input type="button" value="Edit"></td>
+                    <td><input type="button" value="Delete"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IngredientDto[]? Ingredients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Ingredients = await Http.GetFromJsonAsync<IngredientDto[]>("Ingredient");
+    }
+}

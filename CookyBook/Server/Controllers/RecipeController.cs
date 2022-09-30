@@ -8,22 +8,22 @@ namespace CookyBook.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CookRecipeController : ControllerBase
+    public class RecipeController : ControllerBase
     {
         private readonly ICookBookRepository repos;
         private readonly IMapper mapper;
 
-        public CookRecipeController(ICookBookRepository repos, IMapper mapper)
+        public RecipeController(ICookBookRepository repos, IMapper mapper)
         {
             this.repos = repos;
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<CookRecipeDto> Get()
+        public IEnumerable<RecipeDto> Get()
         {
-            List<CookRecipeDto> recipeDtos = new();
-            mapper.Map(repos.GetCookRecipes(), recipeDtos);
+            List<RecipeDto> recipeDtos = new();
+            mapper.Map(repos.GetRecipes(), recipeDtos);
             return recipeDtos.ToArray();
         }
     }

@@ -1,4 +1,4 @@
-﻿@page "/cookbookoverview"
+﻿@page "/recipeoverview"
 
 @using CookyBook.Shared
 @using CookyBook.Shared.DataTransferObjects
@@ -8,7 +8,7 @@
 
 <h1>CookBook</h1>
 
-@if (cookRecipes == null)
+@if (Recipes == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -19,22 +19,24 @@ else
             <tr>
                 <th></th>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Short Description</th>
-                <th>Time</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Preparation</th>
+                <th>Duration</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var recipe in cookRecipes)
+            @foreach (var recipe in Recipes)
             {
                 <tr>
                     <td><input type="checkbox" value="@recipe.Selected" /></td>
                     <td>@recipe.Id</td>
-                    <td>@recipe.Name</td>
-                    <td>@recipe.ShortDescription</td>
-                    <td>@recipe.Time</td>
+                    <td>@recipe.Title</td>
+                    <td>@recipe.Description</td>
+                    <td>@recipe.Preparation</td>
+                    <td>@recipe.Duration</td>
                     <td><input type="button" value="Edit"></td>
                     <td><input type="button" value="Delete"></td>
                 </tr>
@@ -44,10 +46,10 @@ else
 }
 
 @code {
-    private CookRecipeDto[]? cookRecipes;
+    private RecipeDto[]? Recipes;
 
     protected override async Task OnInitializedAsync()
     {
-        cookRecipes = await Http.GetFromJsonAsync<CookRecipeDto[]>("CookRecipe");
+        Recipes = await Http.GetFromJsonAsync<RecipeDto[]>("Recipe");
     }
 }
