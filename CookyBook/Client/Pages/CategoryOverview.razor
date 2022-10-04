@@ -1,0 +1,51 @@
+﻿@page "/categoryoverview"
+
+@using CookyBook.Shared
+@using CookyBook.Shared.DataTransferObjects
+@inject HttpClient Http
+
+<PageTitle>CookBook</PageTitle>
+
+<h1>CookBook</h1>
+
+@if (Categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Categories)
+            {
+                <tr>
+                    <td><input type="checkbox" value="@category.Selected" /></td>
+                    <td>@category.Id</td>
+                    <td>@category.Title</td>
+                    <td>@category.Description</td>
+                    <td><input type="button" value="Edit"></td>
+                    <td><input type="button" value="Delete"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    public CategoryDto[]? Categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await Http.GetFromJsonAsync<CategoryDto[]>("Categories");
+    }
+}
