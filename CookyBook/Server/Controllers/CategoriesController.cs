@@ -20,7 +20,7 @@ namespace CookyBook.Server.Controllers
 
         [HttpGet]
         public IEnumerable<CategoryDto> Get()
-        {
+        { 
             List<CategoryDto> CategoryDtos = new();
             mapper.Map(repos.GetCategory(), CategoryDtos);
             return CategoryDtos.ToArray();
