@@ -1,0 +1,37 @@
+﻿@page "/remove"
+
+@using CookyBook.Shared
+@using CookyBook.Shared.DataTransferObjects
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<PageTitle>CookBook</PageTitle>
+
+ <h3>
+        Delete Items
+        <a class="btn btn-primary" href="/recipeoverview" style="float:right">
+            <span>Back</span>
+        </a>
+    </h3>
+
+    
+
+
+@code {
+
+    private RecipeDto Recipe;
+
+    public void DeleteItem()
+    {
+        Http.PutAsJsonAsync<RecipeDto>("Recipe",Recipe).ContinueWith(prop =>
+            {
+                NavManager.NavigateTo("/recipeoverview");
+            });;
+    }
+
+        protected override async Task OnInitializedAsync()
+    {
+        Recipe = new();
+    }
+}

@@ -14,7 +14,18 @@
 }
 else
 {
+    <a href="/remove">
+        <button Delete>
 
+            <span class="oi oi-trash"></span>
+        </button>
+    </a>
+    <a href="/save">
+        <button Add>
+
+            <span class="oi oi-plus"></span>
+        </button>
+    </a>
 
     <table class="table">
         <thead>
@@ -40,21 +51,10 @@ else
                     <td>@recipe.Preparation</td>
                     <td>@recipe.Duration</td>
                     <td><input type="button" value="Edit"></td>
-                    <td><input type="button" value="Delete"></td>
                 </tr>
 			}
-
-
-
-		</tbody>
-		
+		</tbody>	
     </table>
-    <a href="/save">
-			<button Add>
-			
-			<span class="oi oi-plus"></span>
-			</button>
-		</a>
 }
 
 @code {

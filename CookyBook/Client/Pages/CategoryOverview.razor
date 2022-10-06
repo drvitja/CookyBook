@@ -34,7 +34,9 @@ else
                     <td>@category.Title</td>
                     <td>@category.Description</td>
                     <td><input type="button" value="Edit"></td>
-                    <td><input type="button" value="Delete"></td>
+                    <td><input type="button" value="Delete">
+                        <a asp-page="index" asp-page-handler="delete" asp-route-id="@category.Id">Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>
