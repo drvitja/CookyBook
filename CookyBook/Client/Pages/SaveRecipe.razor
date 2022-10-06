@@ -42,7 +42,7 @@
 
     public void AddRecipe()
     {
-        Http.PutAsJsonAsync<RecipeDto>("Recipe",Recipe).ContinueWith(prop =>
+        Http.PostAsJsonAsync<RecipeDto>("Recipe",Recipe).ContinueWith(prop =>
             {
                 NavManager.NavigateTo("/recipeoverview");
             });;
@@ -50,6 +50,6 @@
 
         protected override async Task OnInitializedAsync()
     {
-        Recipe = new();
+        Recipe = new RecipeDto();
     }
 }

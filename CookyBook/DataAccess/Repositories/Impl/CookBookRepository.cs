@@ -1,20 +1,24 @@
 ﻿using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DataAccess.Repositories.Impl
 {
     public class CookBookRepository : ICookBookRepository
     {
-        public CookBookRepository()
-        {
-        }
+        //private readonly CookBookDbContext DBContext;
+        //public CookBookRepository(CookBookDbContext dBContext)
+        //{
+        //    DBContext = dBContext;
+        //}
 
         public Ingredient[] GetIngredients()
         {
@@ -86,18 +90,35 @@ namespace DataAccess.Repositories.Impl
 
             return Recipes.ToArray();
         }
+
         public void SaveRecipe(Recipe recipe)
         {
             string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
 
             SqlConnection con = new SqlConnection(conString);
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = String.Format("INSERT INTO Recipe (Recipe_ID, Title, Description, Preparation, Duration) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",recipe.Id,recipe.Title,recipe.Description,recipe.Preparation,recipe.Duration);
+            cmd.CommandText = "INSERT INTO Recipe (Recipe_ID, Title, Description, Preparation, Duration) " + "VALUES (@id, @title, @descr, @prep, @dur)";
+            SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
+            SqlParameter descrParam = new SqlParameter("@descr", SqlDbType.Text);
+            SqlParameter titleParam = new SqlParameter("@title", SqlDbType.Text);
+            SqlParameter prepParam = new SqlParameter("@prep", SqlDbType.Text);
+            SqlParameter durParam = new SqlParameter("@dur", SqlDbType.Time);
+            idParam.Value = recipe.Id;
+            descrParam.Value = recipe.Description;
+            titleParam.Value = recipe.Title;
+            prepParam.Value = recipe.Preparation;
+            durParam.Value = recipe.Duration;
+            cmd.Parameters.Add(idParam);
+            cmd.Parameters.Add(descrParam);
+            cmd.Parameters.Add(titleParam);
+            cmd.Parameters.Add(prepParam);
+            cmd.Parameters.Add(durParam);
 
             try
             {
                 con.Open();
-                cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
+
 
             }
             catch (Exception ex)
