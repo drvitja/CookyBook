@@ -1,5 +1,5 @@
 using AutoMapper;
-using CookyBook.Server.Factories;
+using CookyBook.Server.Factories.IFactories;
 using CookyBook.Shared;
 using CookyBook.Shared.DataTransferObjects;
 using DataAccess.Entities;

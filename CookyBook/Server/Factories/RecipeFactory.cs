@@ -1,10 +1,11 @@
-﻿using CookyBook.Shared.DataTransferObjects;
+﻿using CookyBook.Server.Factories.IFactories;
+using CookyBook.Shared.DataTransferObjects;
 using DataAccess.Entities;
 using System;
 
 namespace CookyBook.Server.Factories
 {
-	public class RecipeFactory : IRecipeFactory
+    public class RecipeFactory : IRecipeFactory
     {
 
         public Recipe CreateRecipe(RecipeDto recipeDto)
