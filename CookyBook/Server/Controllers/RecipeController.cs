@@ -1,4 +1,5 @@
 using AutoMapper;
+using CookyBook.Server.Factories;
 using CookyBook.Server.Factories.IFactories;
 using CookyBook.Shared;
 using CookyBook.Shared.DataTransferObjects;
@@ -22,7 +23,7 @@ namespace CookyBook.Server.Controllers
             this.repos = repos;
             this.mapper = mapper;
             this.recipeFactory = new RecipeFactory();
-           // this.recipeFactory = recipeFactory;
+           
         }
 
         [HttpGet]

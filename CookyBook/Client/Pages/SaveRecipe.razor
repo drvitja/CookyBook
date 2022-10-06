@@ -16,7 +16,7 @@
     </h3>
 
 
-<p>    
+    
         <body>
         <p> Id <input @bind-value="Recipe.Id" /></p>
 		<p>Title <input align @bind-value="Recipe.Title" /></p>
@@ -24,7 +24,7 @@
 		<p>Preparation <input @bind-value="Recipe.Preparation" /></p>
         <p>Duration <input @bind-value ="Recipe.Duration" /></p>
         </body>
-</p>
+
 
 
      
@@ -38,7 +38,7 @@
 
 @code {
 
-    private RecipeDto Recipe;
+    private RecipeDto? Recipe;
 
     public void AddRecipe()
     {
