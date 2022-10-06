@@ -19,6 +19,7 @@ namespace DataAccess
         DbSet<Ingredient>? Ingredients { get;set;}
 
         DbSet<Recipe>? Recipes { get; set; }
+        DbSet<Nutrition>?  nutritions { get; set; }
 
     }
 }

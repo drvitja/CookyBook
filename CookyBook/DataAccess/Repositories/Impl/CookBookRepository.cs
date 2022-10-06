@@ -86,6 +86,41 @@ namespace DataAccess.Repositories.Impl
 
             return Recipes.ToArray();
         }
+       
+
+        public Nutrition[] GetNutritions()
+        {
+            List<Nutrition> Nutritions = new List<Nutrition>();
+
+            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
+
+            SqlConnection con = new SqlConnection(conString);
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM Nutrition";
+
+            try
+            {
+                con.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Nutrition nutrition = new Nutrition();
+                    nutrition.Id = reader.GetInt32(reader.GetOrdinal("Ingredient_ID"));
+                    nutrition.Title = reader.GetString(reader.GetOrdinal("Title"));
+                    nutrition.Add(nutrition);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return Nutritions.ToArray();
+        }
         public void SaveRecipe(Recipe recipe)
         {
             string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";

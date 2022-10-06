@@ -11,7 +11,7 @@ namespace DataAccess.Repositories
     {
         public Recipe[] GetRecipes();
         public Ingredient[] GetIngredients();
-
+        public Nutrition[] GetNutritions();
         public Category[] GetCategory();
         public void SaveRecipe(Recipe recipe);
     }

@@ -1,0 +1,55 @@
+﻿@page "/nutritionoverview"
+
+@using CookyBook.Shared
+@using CookyBook.Shared.DataTransferObjects
+@inject HttpClient Http
+
+<PageTitle>CookBook</PageTitle>
+
+<h1>CookBook</h1>
+
+@if (Nutritions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Title</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var nutrition in Nutritions)
+            {
+                <tr>
+                    <td><input type="checkbox" value="@nutrition.Selected" /></td>
+                    <td>@nutrition.Id</td>
+                    <td>@nutrition.Title</td>
+                    <td><input type="button" value="Edit"></td>
+                    <td><input type="button" value="Delete"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private NutritionDto[]? Nutritions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Nutritions = await Http.GetFromJsonAsync<NutritionDto[]>("Nutrition");
+
+
+    }
+
+
+
+}
