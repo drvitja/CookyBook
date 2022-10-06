@@ -86,8 +86,6 @@ namespace DataAccess.Repositories.Impl
 
             return Recipes.ToArray();
         }
-
-        public Category[] GetCategory() { return new Category[]; }
         public void SaveRecipe(Recipe recipe)
         {
             string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
