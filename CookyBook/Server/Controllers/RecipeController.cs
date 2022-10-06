@@ -1,8 +1,11 @@
 using AutoMapper;
+using CookyBook.Server.Factories;
 using CookyBook.Shared;
 using CookyBook.Shared.DataTransferObjects;
+using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CookyBook.Server.Controllers
 {
@@ -12,6 +15,7 @@ namespace CookyBook.Server.Controllers
     {
         private readonly ICookBookRepository repos;
         private readonly IMapper mapper;
+        private readonly IRecipeFactory recipeFactory;
 
         public RecipeController(ICookBookRepository repos, IMapper mapper)
         {
@@ -25,6 +29,15 @@ namespace CookyBook.Server.Controllers
             List<RecipeDto> recipeDtos = new();
             mapper.Map(repos.GetRecipes(), recipeDtos);
             return recipeDtos.ToArray();
+        }
+
+        [HttpPut]
+        public void Put(int id, [FromBody]RecipeDto recipeDto)
+        {
+            Recipe recipe = recipeFactory.CreateRecipe(recipeDto);
+            mapper.Map(recipeDto, recipe);
+            
+            repos.SaveRecipe(recipe);
         }
     }
 }

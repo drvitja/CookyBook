@@ -1,0 +1,55 @@
+﻿@page "/save"
+
+@using CookyBook.Shared
+@using CookyBook.Shared.DataTransferObjects
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<PageTitle>CookBook</PageTitle>
+
+ <h3>
+        Add an recipe
+        <a class="btn btn-primary" href="/recipeoverview" style="float:right">
+            <span>Back</span>
+        </a>
+    </h3>
+
+
+<p>    
+        <body>
+        <p> Id <input @bind-value="Recipe.Id" /></p>
+		<p>Title <input align @bind-value="Recipe.Title" /></p>
+		<p> Description <input @bind-value="Recipe.Description" /></p>
+		<p>Preparation <input @bind-value="Recipe.Preparation" /></p>
+        <p>Duration <input @bind-value ="Recipe.Duration" /></p>
+        </body>
+</p>
+
+
+     
+
+
+    <button class="btn btn-primary" type="button" id="addrec" @onclick="AddRecipe">
+        <span>Submit</span>
+    </button>
+    
+
+
+@code {
+
+    private RecipeDto Recipe;
+
+    public void AddRecipe()
+    {
+        Http.PutAsJsonAsync<RecipeDto>("Recipe",Recipe).ContinueWith(prop =>
+            {
+                NavManager.NavigateTo("/recipeoverview");
+            });;
+    }
+
+        protected override async Task OnInitializedAsync()
+    {
+        Recipe = new();
+    }
+}
