@@ -1,4 +1,4 @@
-﻿@page "/nutritionoverview"
+﻿@page "/nutrientoverview"
 
 @using CookyBook.Shared
 @using CookyBook.Shared.DataTransferObjects
@@ -8,7 +8,7 @@
 
 <h1>CookBook</h1>
 
-@if (Nutritions == null)
+@if (nutrients == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -25,12 +25,12 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var nutrition in Nutritions)
+            @foreach (var nutrient in nutrients)
             {
                 <tr>
-                    <td><input type="checkbox" value="@nutrition.Selected" /></td>
-                    <td>@nutrition.Id</td>
-                    <td>@nutrition.Title</td>
+                    <td><input type="checkbox" value="@nutrient.Selected" /></td>
+                    <td>@nutrient.Id</td>
+                    <td>@nutrient.Title</td>
                     <td><input type="button" value="Edit"></td>
                     <td><input type="button" value="Delete"></td>
                 </tr>
@@ -41,11 +41,11 @@ else
 
 @code {
 
-    private NutritionDto[]? Nutritions;
+    private nutrientDto[]? nutrients;
 
     protected override async Task OnInitializedAsync()
     {
-        Nutritions = await Http.GetFromJsonAsync<NutritionDto[]>("Nutrition");
+        nutrients = await Http.GetFromJsonAsync<nutrientDto[]>("nutrient");
 
 
     }

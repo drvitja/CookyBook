@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
-    public class Nutrition : EntityBase
+    public class nutrient : EntityBase
     {
         public string? Title { get; set; }
 
-        internal void Add(Nutrition nutrition)
+        internal void Add(nutrient nutrient)
         {
             throw new NotImplementedException();
         }

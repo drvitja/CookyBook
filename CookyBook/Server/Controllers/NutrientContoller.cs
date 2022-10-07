@@ -7,23 +7,23 @@ namespace CookyBook.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class NutritionController : ControllerBase
+    public class nutrientController : ControllerBase
     {
         private readonly ICookBookRepository repos;
         private readonly IMapper mapper;
 
-        public NutritionController(ICookBookRepository repos, IMapper mapper)
+        public nutrientController(ICookBookRepository repos, IMapper mapper)
         {
             this.repos = repos;
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<NutritionDto> Get()
+        public IEnumerable<nutrientDto> Get()
         {
-            List<NutritionDto> NutritionDtos = new();
-            mapper.Map(repos.GetIngredients(), NutritionDtos);
-            return NutritionDtos.ToArray();
+            List<nutrientDto> nutrientDtos = new();
+            mapper.Map(repos.GetIngredients(), nutrientDtos);
+            return nutrientDtos.ToArray();
         }
     }
 }
