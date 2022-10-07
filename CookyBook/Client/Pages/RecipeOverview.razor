@@ -3,6 +3,7 @@
 @using CookyBook.Shared
 @using CookyBook.Shared.DataTransferObjects
 @inject HttpClient Http
+@inject NavigationManager NavManager
 
 <PageTitle>CookBook</PageTitle>
 
@@ -14,8 +15,8 @@
 }
 else
 {
-    <a href="/remove">
-        <button Delete>
+    <a>
+        <button Delete @onclick="DeleteRecipe">
 
             <span class="oi oi-trash"></span>
         </button>
@@ -41,6 +42,7 @@ else
             </tr>
         </thead>
         <tbody>
+
             @foreach (var recipe in Recipes)
             {
                 <tr>
@@ -52,16 +54,32 @@ else
                     <td>@recipe.Duration</td>
                     <td><input type="button" value="Edit"></td>
                 </tr>
-			}
-		</tbody>	
+            }
+        </tbody>	
     </table>
 }
 
 @code {
     private RecipeDto[]? Recipes;
+    private RecipeDto Recipe;
 
     protected override async Task OnInitializedAsync()
     {
         Recipes = await Http.GetFromJsonAsync<RecipeDto[]>("Recipe");
+    }
+
+    public void DeleteRecipe()
+    {
+        foreach (var recipe in Recipes)
+        {
+            if (recipe.Selected = true)
+            {
+                
+            }
+        }
+        Http.PutAsJsonAsync<RecipeDto>("Recipe", Recipe).ContinueWith(prop =>
+            {
+                NavManager.NavigateTo("/recipeoverview");
+            }); ;
     }
 }

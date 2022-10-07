@@ -200,5 +200,18 @@ namespace DataAccess.Repositories.Impl
 
             return CategoryList.ToArray();
         }
+
+        public void DeletePerson(int id)
+        {
+            Recipe _recipe = this.DBContext.Recipe.Where(Recipe => Recipe.Id == id).FirstOrDefault();
+            this.DBContext.Recipe.Remove(_recipe);
+            this.DBContext.SaveChanges();
+
+            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
+
+            SqlConnection con = new SqlConnection(conString);
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "Delete From Recipe Where Recipe_ID = " + id;
+        }
     }
 }

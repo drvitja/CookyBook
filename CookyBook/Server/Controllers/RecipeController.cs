@@ -41,5 +41,11 @@ namespace CookyBook.Server.Controllers
             Recipe recipe = recipeFactory.CreateRecipe(recDto);            
             repos.SaveRecipe(recipe);
         }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            repos.DeleteRecipe(id);
+        }
     }
 }
