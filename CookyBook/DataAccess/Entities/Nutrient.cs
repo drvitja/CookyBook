@@ -8,13 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
-    public class nutrient : EntityBase
+    public class Nutrient : EntityBase
     {
         public string? Title { get; set; }
 
-        internal void Add(nutrient nutrient)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

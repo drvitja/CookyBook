@@ -1,6 +1,6 @@
 ﻿namespace CookyBook.Shared.DataTransferObjects
 {
-    public class nutrientDto : DtoBase
+    public class NutrientDto : DtoBase
     {
         public bool Selected { get; set; }
 

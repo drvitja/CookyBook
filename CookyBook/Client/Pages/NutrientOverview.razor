@@ -8,7 +8,7 @@
 
 <h1>CookBook</h1>
 
-@if (nutrients == null)
+@if (Nutrients == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -25,7 +25,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var nutrient in nutrients)
+            @foreach (var nutrient in Nutrients)
             {
                 <tr>
                     <td><input type="checkbox" value="@nutrient.Selected" /></td>
@@ -41,11 +41,11 @@ else
 
 @code {
 
-    private nutrientDto[]? nutrients;
+    private NutrientDto[]? Nutrients;
 
     protected override async Task OnInitializedAsync()
     {
-        nutrients = await Http.GetFromJsonAsync<nutrientDto[]>("nutrient");
+        Nutrients = await Http.GetFromJsonAsync<NutrientDto[]>("nutrient");
 
 
     }

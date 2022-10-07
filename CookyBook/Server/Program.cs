@@ -48,5 +48,5 @@ void AddAutoMapperProfiles(IServiceCollection services)
     services.AddAutoMapper(typeof(RecipeProfile));
     services.AddAutoMapper(typeof(IngredientProfile));
     services.AddAutoMapper(typeof(CategoryProfile));
-    services.AddAutoMapper(typeof(nutrientProfile));
+    services.AddAutoMapper(typeof(NutrientProfile));
 }

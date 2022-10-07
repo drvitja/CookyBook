@@ -5,12 +5,12 @@ using DataAccess.Entities;
 
 namespace CookyBook.Server.AutoMapperProfiles
 {
-    public class nutrientProfile : Profile
+    public class NutrientProfile : Profile
     {
-        public nutrientProfile()
+        public NutrientProfile()
         {
-            CreateMap<nutrient, nutrientDto>();
-            CreateMap<nutrientDto, nutrient>();
+            CreateMap<Nutrient, NutrientDto>();
+            CreateMap<NutrientDto, Nutrient>();
         }
     }
 }
