@@ -14,5 +14,6 @@ namespace DataAccess.Repositories
         public Nutrient[] GetNutrients();
         public Category[] GetCategory();
         public void SaveRecipe(Recipe recipe);
+        public void DeleteRecipe(long id);
     }
 }
