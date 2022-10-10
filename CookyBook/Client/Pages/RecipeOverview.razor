@@ -66,7 +66,7 @@ else
                 <div class="col">
                     <div class="card h-100">
                         <div class="card-header">
-                            <input type="checkbox" value="@recipe.Selected" />
+                            <input type="checkbox" @bind-value="@recipe.Selected" />
                             <img src="@recipe.ImageUrl" />
                         </div>
                         <div class="card-body">
@@ -104,15 +104,15 @@ else
         Recipes = response?.ToList<RecipeDto>();
     }
 
-    public void DeleteRecipe()
+    public async void DeleteRecipe()
     {
-        foreach (var recipe in Recipes!.Where(x => x.Selected))
+        List<RecipeDto> ItemsToDelete = new();
+        ItemsToDelete = Recipes!.Where(x => x.Selected).ToList<RecipeDto>();
+        foreach (var recipe in ItemsToDelete)
         {
-
-            Http.PutAsJsonAsync<RecipeDto>("Recipe", Recipe).ContinueWith(prop =>
-                {
-                    NavManager.NavigateTo("/recipeoverview");
-                });
+            await Http.DeleteAsync($"Recipe/{recipe.Id}");
+            Recipes!.Remove(recipe);
+            this.StateHasChanged();
         }
     }
 }
