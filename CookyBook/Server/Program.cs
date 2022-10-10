@@ -1,8 +1,10 @@
 using AutoMapper.EquivalencyExpression;
 using CookyBook.Server.AutoMapperProfiles;
+using DataAccess;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Impl;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<CookBookDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CookBookConnection")));
+
 builder.Services.AddTransient<ICookBookRepository, CookBookRepository>();
+
 AddAutoMapperProfiles(builder.Services);
 
 var app = builder.Build();
