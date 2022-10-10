@@ -9,5 +9,7 @@ namespace DataAccess.Entities
     public class Ingredient : EntityBase
     {
         public string? Title { get; set; }
+
+        public List<Recipe> Recipes { get; set; }
     }
 }

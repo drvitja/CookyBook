@@ -14,11 +14,12 @@ namespace DataAccess.Repositories.Impl
 {
     public class CookBookRepository : ICookBookRepository
     {
-        //private readonly CookBookDbContext DBContext;
-        //public CookBookRepository(CookBookDbContext dBContext)
-        //{
-        //    DBContext = dBContext;
-        //}
+        private readonly CookBookDbContext DBContext;
+
+        public CookBookRepository(CookBookDbContext dBContext)
+        {
+            DBContext = dBContext;
+        }
 
         public Ingredient[] GetIngredients()
         {
@@ -54,43 +55,48 @@ namespace DataAccess.Repositories.Impl
             return Ingredients.ToArray();
         }
 
+        //public Recipe[] GetRecipes()
+        //{
+        //    List<Recipe> Recipes = new List<Recipe>();
+
+        //    string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
+
+        //    SqlConnection con = new SqlConnection(conString);
+        //    SqlCommand cmd = con.CreateCommand();
+        //    cmd.CommandText = "SELECT * FROM Recipe";
+
+        //    try
+        //    {
+        //        con.Open();
+        //        var reader = cmd.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            Recipe recipe = new Recipe();
+        //            recipe.Id = reader.GetInt32(reader.GetOrdinal("Recipe_ID")); 
+        //            recipe.Title = reader.GetString(reader.GetOrdinal("Title"));
+        //            recipe.Description = reader.GetString(reader.GetOrdinal("Description"));
+        //            recipe.Preparation = reader.GetString(reader.GetOrdinal("Preparation"));
+        //            recipe.Duration = reader.GetTimeSpan(reader.GetOrdinal("Duration"));
+        //            recipe.ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"));
+        //            Recipes.Add(recipe);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+
+        //    return Recipes.ToArray();
+        //}
+
         public Recipe[] GetRecipes()
         {
-            List<Recipe> Recipes = new List<Recipe>();
-
-            string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
-
-            SqlConnection con = new SqlConnection(conString);
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "SELECT * FROM Recipe";
-
-            try
-            {
-                con.Open();
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Recipe recipe = new Recipe();
-                    recipe.Id = reader.GetInt32(reader.GetOrdinal("Recipe_ID"));
-                    recipe.Title = reader.GetString(reader.GetOrdinal("Title"));
-                    recipe.Description = reader.GetString(reader.GetOrdinal("Description"));
-                    recipe.Preparation = reader.GetString(reader.GetOrdinal("Preparation"));
-                    recipe.Duration = reader.GetTimeSpan(reader.GetOrdinal("Duration"));
-                    Recipes.Add(recipe);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return Recipes.ToArray();
+            return DBContext.Recipes!.ToArray();
         }
-
 
         public Nutrient[] GetNutrients()
         {
@@ -200,12 +206,12 @@ namespace DataAccess.Repositories.Impl
 
             return CategoryList.ToArray();
         }
-
-        public void DeletePerson(int id)
+              
+        public void DeleteRecipe(long id)
         {
-            Recipe _recipe = this.DBContext.Recipe.Where(Recipe => Recipe.Id == id).FirstOrDefault();
-            this.DBContext.Recipe.Remove(_recipe);
-            this.DBContext.SaveChanges();
+              //Recipe _recipe = this.DBContext.Recipe.Where(Recipe => Recipe.Id == id).FirstOrDefault();
+            //this.DBContext.Recipe.Remove(_recipe);
+            //this.DBContext.SaveChanges();
 
             string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
 
