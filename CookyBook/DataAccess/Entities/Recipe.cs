@@ -14,6 +14,5 @@
 
         public string? Level { get; set; }
 
-        public List<Ingredient> Ingredients { get; set; }
     }
 }

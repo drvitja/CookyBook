@@ -95,7 +95,7 @@ namespace DataAccess.Repositories.Impl
 
         public Recipe[] GetRecipes()
         {
-            return DBContext.Recipes!.ToArray();
+            return DBContext.Recipe!.ToArray();
         }
 
         public Nutrient[] GetNutrients()

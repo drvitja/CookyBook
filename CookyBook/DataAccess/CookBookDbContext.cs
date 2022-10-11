@@ -14,13 +14,13 @@ namespace DataAccess
             optionsBuilder.EnableSensitiveDataLogging();
         }
 
-        public DbSet<Category>? Categories { get;set;}
+        public DbSet<Category>? Category { get;set;}
 
-        public DbSet<Ingredient>? Ingredients { get;set;}
+        public DbSet<Ingredient>? Ingredient { get;set;}
 
-        public DbSet<Recipe>? Recipes { get; set; }
+        public DbSet<Recipe>? Recipe { get; set; }
 
-        public DbSet<Nutrient>?  Nutrients { get; set; }
+        public DbSet<Nutrient>? Nutrient { get; set; }
 
     }
 }
