@@ -10,6 +10,5 @@ namespace DataAccess.Entities
     {
         public string? Title { get; set; }
 
-        public List<Recipe> Recipes { get; set; }
     }
 }
