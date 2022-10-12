@@ -5,61 +5,58 @@
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
-<PageTitle>CookBook</PageTitle>
+<PageTitle>CookyBook</PageTitle>
 
-<h1>CookBook</h1>
 
-@if (Recipes == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @if (!IsHidden)
-    {
-        <a>
-            <button Delete @onclick="DeleteRecipe">
-                <span class="oi oi-trash"></span>
-            </button>
-        </a>
-    }
-    <a href="/save">
-        <button Add>
-            <span class="oi oi-plus"></span>
-        </button>
-    </a>
+	@if (Recipes == null)
+	{
+		<p><em>Loading...</em></p>
+	}
 
-   <table class="d-none d-md-table border-1">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Preparation</th>
-                <th>Duration</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+	else
+	{
 
-            @foreach (var recipe in Recipes)
-            {
-                <tr>
-                    <td><input type="checkbox" value="@recipe.Selected" /></td>
-                    <td>@recipe.Id</td>
-                    <td>@recipe.Title</td>
-                    <td>@recipe.Description</td>
-                    <td>@recipe.Preparation</td>
-                    <td>@recipe.Duration</td>
-                    <td><input type="button" value="Edit"></td>
-                </tr>
-            }
-        </tbody>	
-    </table>
 
-    @foreach (var recipe in Recipes)
+
+		<div class="wrapper">
+			<div class="header">Recipes</div>
+
+			<p></p>
+
+		@if (!IsHidden)
+		{
+			<a>
+				<button Delete @onclick="DeleteRecipe">
+					<span class="oi oi-trash"></span>
+				</button>
+			</a>
+		}
+
+		<a href="/save">
+			<button Add>
+				<span class="oi oi-plus"></span>
+			</button>
+		</a>
+
+			<div class="cards_wrap">
+				@foreach (var recipe in Recipes)
+				{
+					<div class="card_item">
+						<div class="card_inner">
+							<input class="recipe_checkbox" type="checkbox" @bind-value="@recipe.Selected" />
+							<img src="@recipe.ImageUrl" />
+							<div class="recipe_name">@recipe.Title</div>
+						<div class="recipe_duration"><b>Duration: </b>@recipe.Duration</div>
+						<div class="recipe_level"><b>Difficulty: </b>@recipe.Level</div>
+							<div class="recipe_description"><b>Description: </b>@recipe.Description</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+@* @foreach (var recipe in Recipes)
     {
         <div class="d-md-none d-sm-grid">
             <div class="row row-cols-1 row-cols-md-2 g-4 m-2">
@@ -88,31 +85,31 @@ else
                 </div>
             </div>
         </div>
-    }
+    }*@
 
-}
+
 
 @code {
-    private List<RecipeDto>? Recipes = new();
-    private RecipeDto Recipe;
+	private List<RecipeDto>? Recipes = new();
+	private RecipeDto Recipe;
 
-    public bool IsHidden => Recipes == null || Recipes.Count() == 0 ? true : false;
+	public bool IsHidden => Recipes == null || Recipes.Count() == 0 ? true : false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        var response = await Http.GetFromJsonAsync<RecipeDto[]>("Recipe");
-        Recipes = response?.ToList<RecipeDto>();
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		var response = await Http.GetFromJsonAsync<RecipeDto[]>("Recipe");
+		Recipes = response?.ToList<RecipeDto>();
+	}
 
-    public async void DeleteRecipe()
-    {
-        List<RecipeDto> ItemsToDelete = new();
-        ItemsToDelete = Recipes!.Where(x => x.Selected).ToList<RecipeDto>();
-        foreach (var recipe in ItemsToDelete)
-        {
-            await Http.DeleteAsync($"Recipe/{recipe.Id}");
-            Recipes!.Remove(recipe);
-            this.StateHasChanged();
-        }
-    }
+	public async void DeleteRecipe()
+	{
+		List<RecipeDto> ItemsToDelete = new();
+		ItemsToDelete = Recipes!.Where(x => x.Selected).ToList<RecipeDto>();
+		foreach (var recipe in ItemsToDelete)
+		{
+			await Http.DeleteAsync($"Recipe/{recipe.Id}");
+			Recipes!.Remove(recipe);
+			this.StateHasChanged();
+		}
+	}
 }
