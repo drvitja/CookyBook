@@ -23,7 +23,6 @@ namespace CookyBook.Server.Controllers
             this.repos = repos;
             this.mapper = mapper;
             this.recipeFactory = new RecipeFactory();
-           
         }
 
         [HttpGet]
@@ -37,8 +36,7 @@ namespace CookyBook.Server.Controllers
         [HttpPost]
         public void Post(int id, [FromBody]RecipeDto recipeDto)
         {
-            RecipeDto recDto = recipeDto;
-            Recipe recipe = recipeFactory.CreateRecipe(recDto);            
+            Recipe recipe = recipeFactory.CreateRecipe(recipeDto);            
             repos.SaveRecipe(recipe);
         }
 

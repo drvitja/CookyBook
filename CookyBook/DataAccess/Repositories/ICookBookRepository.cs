@@ -12,7 +12,7 @@ namespace DataAccess.Repositories
         public Recipe[] GetRecipes();
         public Ingredient[] GetIngredients();
         public Nutrient[] GetNutrients();
-        public Category[] GetCategory();
+        public Category[] GetCategories();
         public void SaveRecipe(Recipe recipe);
         public void DeleteRecipe(long id);
     }

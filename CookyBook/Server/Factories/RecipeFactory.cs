@@ -16,6 +16,8 @@ namespace CookyBook.Server.Factories
             recipe.Description = recipeDto.Description;
             recipe.Preparation = recipeDto.Preparation;
             recipe.Duration = recipeDto.Duration;
+            recipe.ImageUrl = recipeDto.ImageUrl;
+            recipe.Level = recipeDto.Level;
 
             return recipe;
         }

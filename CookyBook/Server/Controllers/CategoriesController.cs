@@ -22,7 +22,7 @@ namespace CookyBook.Server.Controllers
         public IEnumerable<CategoryDto> Get()
         { 
             List<CategoryDto> CategoryDtos = new();
-            mapper.Map(repos.GetCategory(), CategoryDtos);
+            mapper.Map(repos.GetCategories(), CategoryDtos);
             return CategoryDtos.ToArray();
         }
     }
