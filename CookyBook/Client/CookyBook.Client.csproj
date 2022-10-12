@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Shared\CookyBook.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Style\" />
-  </ItemGroup>
-
 </Project>

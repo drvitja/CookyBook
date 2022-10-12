@@ -26,14 +26,14 @@
 		@if (!IsHidden)
 		{
 			<a>
-				<button Delete @onclick="DeleteRecipe">
+				<button Delete style="height:50px; width: 50px; margin:10px;" @onclick="DeleteRecipe">
 					<span class="oi oi-trash"></span>
 				</button>
 			</a>
 		}
 
 		<a href="/save">
-			<button Add>
+			<button Add style="height:50px; width: 50px; margin: 10px;">
 				<span class="oi oi-plus"></span>
 			</button>
 		</a>
@@ -55,38 +55,6 @@
 			</div>
 		</div>
 	}
-
-@* @foreach (var recipe in Recipes)
-    {
-        <div class="d-md-none d-sm-grid">
-            <div class="row row-cols-1 row-cols-md-2 g-4 m-2">
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-header">
-                            <input type="checkbox" @bind-value="@recipe.Selected" />
-                            <img src="@recipe.ImageUrl" />
-                        </div>
-                        <div class="card-body">
-                            <h5>@recipe.Title</h5>
-                            <p>@recipe.Description</p>
-                            <p class="card-text">@recipe.Preparation</p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="text-muted">Zubereitungsdauer @recipe.Duration.TotalMinutes Minuten</p>
-                                </div>
-                                <div class="col-6">
-                                    <button class="btn btn-danger btn-sm m-2" type="button">Edit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }*@
-
 
 
 @code {

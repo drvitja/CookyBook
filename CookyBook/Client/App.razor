@@ -4,9 +4,13 @@
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <PageTitle>Not found</PageTitle>
+        <PageTitle>CookyBook - Homepage</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
+			 <label>
+				<p>Willkommen bei CookyBook!</p>
+				<p>Dein digitales Kochbuch :)</p>
+				<p>made by Alexander Vogt, Tom Jäger, Jannik Baumgarten und Viktor Jegel</p>
+			</label>     
         </LayoutView>
     </NotFound>
 </Router>
