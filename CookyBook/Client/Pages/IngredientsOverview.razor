@@ -4,9 +4,7 @@
 @using CookyBook.Shared.DataTransferObjects
 @inject HttpClient Http
 
-<PageTitle>CookBook</PageTitle>
-
-<h1>CookBook</h1>
+<PageTitle>CookyBook</PageTitle>
 
 @if (Ingredients == null)
 {
@@ -14,6 +12,24 @@
 }
 else
 {
+
+    <div class="wrapper">
+        <div class="header">Ingredients</div>
+
+        <p></p>
+
+        @if (!IsHidden)
+        {
+            <button Delete style="height:50px; width: 50px; margin:10px;" @onclick="DeleteIngredient">
+                <span class="oi oi-trash"></span>
+            </button>
+
+        }
+        <button Add onclick="location.href='save'" style="height:50px; width: 50px; margin: 10px;">
+            <span class="oi oi-plus"></span>
+        </button>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -31,8 +47,6 @@ else
                     <td><input type="checkbox" value="@ingredient.Selected" /></td>
                     <td>@ingredient.Id</td>
                     <td>@ingredient.Title</td>
-                    <td><input type="button" value="Edit"></td>
-                    <td><input type="button" value="Delete"></td>
                 </tr>
             }
         </tbody>
@@ -40,10 +54,24 @@ else
 }
 
 @code {
-    private IngredientDto[]? Ingredients;
+    private List<IngredientDto>? Ingredients;
+    public bool IsHidden => Ingredients == null || Ingredients.Count() == 0 ? true : false;
 
     protected override async Task OnInitializedAsync()
     {
-        Ingredients = await Http.GetFromJsonAsync<IngredientDto[]>("Ingredient");
+        var response = await Http.GetFromJsonAsync<IngredientDto[]>("Ingredient");
+        Ingredients = response?.ToList<IngredientDto>();
+    }
+
+    public async void DeleteIngredient()
+    {
+        List<IngredientDto> ItemsToDelete = new();
+        ItemsToDelete = Ingredients!.Where(x => x.Selected).ToList<IngredientDto>();
+        foreach (var ingredient in ItemsToDelete)
+        {
+            await Http.DeleteAsync($"Ingredient/{ingredient.Id}");
+            Ingredients!.Remove(ingredient);
+            this.StateHasChanged();
+        }
     }
 }
