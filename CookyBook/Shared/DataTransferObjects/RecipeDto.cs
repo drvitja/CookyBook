@@ -10,9 +10,9 @@
 
         public string? Preparation { get; set; }
 
-        public TimeSpan Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
 
-        public string Level { get; set; }   
+        public string? Level { get; set; }   
 
         public string? ImageUrl { get; set; }
     }

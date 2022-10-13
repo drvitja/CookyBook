@@ -1,5 +1,6 @@
 using AutoMapper;
 using CookyBook.Shared.DataTransferObjects;
+using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,10 @@ namespace CookyBook.Server.Controllers
     [Route("[controller]")]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICookBookRepository repos;
+        private readonly ICookBookRepository<Category> repos;
         private readonly IMapper mapper;
 
-        public CategoriesController(ICookBookRepository repos, IMapper mapper)
+        public CategoriesController(ICookBookRepository<Category> repos, IMapper mapper)
         {
             this.repos = repos;
             this.mapper = mapper;
@@ -22,8 +23,8 @@ namespace CookyBook.Server.Controllers
         public IEnumerable<CategoryDto> Get()
         { 
             List<CategoryDto> CategoryDtos = new();
-            mapper.Map(repos.GetCategories(), CategoryDtos);
-            return CategoryDtos.ToArray();
+            mapper.Map(repos.GetEntities(), CategoryDtos);
+            return CategoryDtos;
         }
     }
 }

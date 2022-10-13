@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CookyBook.Shared.DataTransferObjects;
+using DataAccess.Entities;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,10 @@ namespace CookyBook.Server.Controllers
     [Route("[controller]")]
     public class IngredientController : ControllerBase
     {
-        private readonly ICookBookRepository repos;
+        private readonly ICookBookRepository<Ingredient> repos;
         private readonly IMapper mapper;
 
-        public IngredientController(ICookBookRepository repos, IMapper mapper)
+        public IngredientController(ICookBookRepository<Ingredient> repos, IMapper mapper)
         {
             this.repos = repos;
             this.mapper = mapper;
@@ -22,8 +23,8 @@ namespace CookyBook.Server.Controllers
         public IEnumerable<IngredientDto> Get()
         {
             List<IngredientDto> IngredientDtos = new();
-            mapper.Map(repos.GetIngredients(), IngredientDtos);
-            return IngredientDtos.ToArray();
+            mapper.Map(repos.GetEntities(), IngredientDtos);
+            return IngredientDtos;
         }
     }
 }
