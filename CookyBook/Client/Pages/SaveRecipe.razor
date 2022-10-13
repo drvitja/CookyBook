@@ -15,8 +15,8 @@
         </a>
     </h3>
 
-
-    
+    @if (Recipe != null)
+    {
         <div class="container">
 		<p>Title <input align @bind-value="Recipe.Title" /></p>
 		<p>Description <input @bind-value="Recipe.Description" /></p>
@@ -25,6 +25,7 @@
         <p>Level <input @bind-value ="Recipe.Level" /></p>
         <p>Image <input @bind-value ="Recipe.ImageUrl" /></p>
         </div>
+    }
 
 
 
@@ -43,7 +44,7 @@
 
     public void AddRecipe()
     {
-        Http.PostAsJsonAsync<RecipeDto>("Recipe",Recipe).ContinueWith(prop =>
+        Http.PostAsJsonAsync<RecipeDto?>("Recipe",Recipe).ContinueWith(prop =>
             {
                 NavManager.NavigateTo("/recipeoverview");
             });;
