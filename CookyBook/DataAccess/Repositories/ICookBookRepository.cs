@@ -16,7 +16,9 @@ namespace DataAccess.Repositories
         //public void SaveRecipe(Recipe recipe);
         //public void DeleteRecipe(long id);
 
-        public List<TEntity> GetEntities();
+        public IEnumerable<TEntity> GetEntities();
+        public void SetEntity(TEntity entity);
+        public void RemoveEntity(long id);
 
     }
 }

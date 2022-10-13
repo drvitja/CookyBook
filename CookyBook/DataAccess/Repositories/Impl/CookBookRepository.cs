@@ -21,10 +21,30 @@ namespace DataAccess.Repositories.Impl
             DBContext = dBContext;
         }
 
-        public List<TEntity> GetEntities()
+        public IEnumerable<TEntity> GetEntities()
         {
-            return DBContext.Set<TEntity>().ToList<TEntity>();
+            return this.DBContext.Set<TEntity>().ToList<TEntity>();
         }
+
+        public void RemoveEntity(long id)
+        {
+            TEntity? entity = DBContext.Find<TEntity>(id);
+           if (entity != null)
+            {
+                DBContext.Remove(entity);
+                DBContext.SaveChanges();
+            }
+        }
+
+        public void SetEntity(TEntity entity)
+        {
+            this.DBContext.Set<TEntity>().Add(entity);
+            this.DBContext.SaveChanges();
+        }
+
+        
+
+
 
         //Old versions of Get() / Save() / Delete() --> SQL
         //public Ingredient[] GetIngredients()

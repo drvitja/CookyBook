@@ -4,9 +4,7 @@
 @using CookyBook.Shared.DataTransferObjects
 @inject HttpClient Http
 
-<PageTitle>CookBook</PageTitle>
-
-<h1>CookBook</h1>
+<PageTitle>CookyBook</PageTitle>
 
 @if (Nutrients == null)
 {
@@ -14,6 +12,24 @@
 }
 else
 {
+    <div class="wrapper">
+        <div class="header">Nutrients</div>
+
+        <p></p>
+
+        @if (!IsHidden)
+        {
+            <button Delete style="height:50px; width: 50px; margin:10px;" @onclick="DeleteNutrient">
+                <span class="oi oi-trash"></span>
+            </button>
+
+        }
+        <button Add onclick="location.href='save'" style="height:50px; width: 50px; margin: 10px;">
+            <span class="oi oi-plus"></span>
+        </button>
+
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -28,11 +44,9 @@ else
             @foreach (var nutrient in Nutrients)
             {
                 <tr>
-                    <td><input type="checkbox" value="@nutrient.Selected" /></td>
+                    <td><input type="checkbox" @bind-value="@nutrient.Selected" /></td>
                     <td>@nutrient.Id</td>
                     <td>@nutrient.Title</td>
-                    <td><input type="button" value="Edit"></td>
-                    <td><input type="button" value="Delete"></td>
                 </tr>
             }
         </tbody>
@@ -41,13 +55,26 @@ else
 
 @code {
 
-    private NutrientDto[]? Nutrients;
+    private List<NutrientDto>? Nutrients;
+
+    public bool IsHidden => Nutrients == null || Nutrients.Count() == 0 ? true : false;
 
     protected override async Task OnInitializedAsync()
     {
-        Nutrients = await Http.GetFromJsonAsync<NutrientDto[]>("nutrient");
+        var response = await Http.GetFromJsonAsync<NutrientDto[]?>("Nutrient");
+        Nutrients = response?.ToList<NutrientDto>();
+    }
 
-
+    public async void DeleteNutrient()
+    {
+        List<NutrientDto> ItemsToDelete = new();
+        ItemsToDelete = Nutrients!.Where(x => x.Selected).ToList<NutrientDto>();
+        foreach (var nutrient in ItemsToDelete)
+        {
+            await Http.DeleteAsync($"Nutrient/{nutrient.Id}");
+            Nutrients!.Remove(nutrient);
+            this.StateHasChanged();
+        }
     }
 
 

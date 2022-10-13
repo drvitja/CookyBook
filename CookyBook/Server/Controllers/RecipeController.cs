@@ -37,14 +37,14 @@ namespace CookyBook.Server.Controllers
         [HttpPost]
         public void Post(int id, [FromBody]RecipeDto recipeDto)
         {
-            Recipe recipe = recipeFactory.CreateRecipe(recipeDto);            
-            //repos.SaveRecipe(recipe);
+            Recipe recipe = recipeFactory.CreateRecipe(recipeDto);
+            repos.SetEntity(recipe);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            //repos.DeleteRecipe(id);
+            repos.RemoveEntity(id);
         }
     }
 }
