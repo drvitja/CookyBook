@@ -15,9 +15,6 @@
 
 	else
 	{
-
-
-
 		<div class="wrapper">
 			<div class="header">Recipes</div>
 
@@ -25,18 +22,15 @@
 
 		@if (!IsHidden)
 		{
-			<a>
 				<button Delete style="height:50px; width: 50px; margin:10px;" @onclick="DeleteRecipe">
 					<span class="oi oi-trash"></span>
 				</button>
-			</a>
+				
 		}
-
-		<a href="/save">
-			<button Add style="height:50px; width: 50px; margin: 10px;">
+			<button Add onclick="location.href='save'" style="height:50px; width: 50px; margin: 10px;">
 				<span class="oi oi-plus"></span>
 			</button>
-		</a>
+
 
 			<div class="cards_wrap">
 				@foreach (var recipe in Recipes)
@@ -59,7 +53,6 @@
 
 @code {
 	private List<RecipeDto>? Recipes = new();
-	private RecipeDto Recipe;
 
 	public bool IsHidden => Recipes == null || Recipes.Count() == 0 ? true : false;
 

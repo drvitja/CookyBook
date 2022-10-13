@@ -15,8 +15,6 @@
         </a>
     </h3>
 
-
-    
         <div class="container">
 		<p>Title <input align @bind-value="Recipe.Title" /></p>
 		<p>Description <input @bind-value="Recipe.Description" /></p>
@@ -26,20 +24,13 @@
         <p>Image <input @bind-value ="Recipe.ImageUrl" /></p>
         </div>
 
-
-
-     
-
-
     <button class="btn btn-primary" type="button" id="addrec" @onclick="AddRecipe">
         <span>Submit</span>
     </button>
     
-
-
 @code {
 
-    private RecipeDto? Recipe;
+    private RecipeDto Recipe;
 
     public void AddRecipe()
     {
