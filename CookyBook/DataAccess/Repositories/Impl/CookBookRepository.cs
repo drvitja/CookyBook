@@ -12,13 +12,18 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DataAccess.Repositories.Impl
 {
-    public class CookBookRepository : ICookBookRepository
+    public class CookBookRepository<TEntity> : ICookBookRepository<TEntity> where TEntity : EntityBase
     {
         private readonly CookBookDbContext DBContext;
 
         public CookBookRepository(CookBookDbContext dBContext)
         {
             DBContext = dBContext;
+        }
+
+        public List<TEntity> GetEntities()
+        {
+            return DBContext.Set<TEntity>().ToList<TEntity>();
         }
 
         //Old versions of Get() / Save() / Delete() --> SQL
@@ -160,7 +165,7 @@ namespace DataAccess.Repositories.Impl
 
         //    return CategoryList.ToArray();
         //}
-        
+
         //public void SaveRecipe(Recipe recipe)
         //{
         //    string conString = "Data Source=(localdb)\\MsSqlLocalDB;Initial Catalog=CookyBook_DB;Integrated Security=True";
@@ -207,38 +212,39 @@ namespace DataAccess.Repositories.Impl
         //    SqlCommand cmd = con.CreateCommand();
         //    cmd.CommandText = "Delete From Recipe Where Recipe_ID = " + id;
         //}
-        public Recipe[] GetRecipes()
-        {
-            return DBContext.Recipe!.ToArray();
-        }
+        //public Recipe[] GetRecipes()
+        //{
+        //    return DBContext.Recipe!.ToArray();
+        //}
 
-        public Ingredient[] GetIngredients()
-        {
-            return DBContext.Ingredient!.ToArray();
-        }      
-        
-        public Nutrient[] GetNutrients()
-        {
-            return DBContext.Nutrient!.ToArray();
-        }
-               
-        public Category[] GetCategories()
-        {
-            return DBContext.Category!.ToArray();
-        }
+        //public Ingredient[] GetIngredients()
+        //{
+        //    return DBContext.Ingredient!.ToArray();
+        //}      
 
-        public void SaveRecipe(Recipe recipe)
-        {
-            this.DBContext.Recipe.Add(recipe);
-            this.DBContext.SaveChanges();
-        }
+        //public Nutrient[] GetNutrients()
+        //{
+        //    return DBContext.Nutrient!.ToArray();
+        //}
 
-        public void DeleteRecipe(long id)
-        {
-            Recipe _recipe = this.DBContext.Recipe.Where(Recipe => Recipe.Id == id).FirstOrDefault();
-            this.DBContext.Recipe.Remove(_recipe);
-            this.DBContext.SaveChanges();
-        }
+        //public Category[] GetCategories()
+        //{
+        //    return DBContext.Category!.ToArray();
+        //}
+
+        //public void SaveRecipe(Recipe recipe)
+        //{
+        //    this.DBContext.Recipe!.Add(recipe);
+        //    this.DBContext.SaveChanges();
+        //}
+
+        //public void DeleteRecipe(long id)
+        //{
+
+        //    Recipe _recipe = this.DBContext.Recipe.Where(Recipe => Recipe.Id == id).FirstOrDefault();
+        //    this.DBContext.Recipe.Remove(_recipe);
+        //    this.DBContext.SaveChanges();
+        //}
 
 
 
